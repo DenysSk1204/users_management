@@ -1,1 +1,1 @@
-This is a little script for users managment in Linux systems.
+This is a little script for users management in Linux systems.
