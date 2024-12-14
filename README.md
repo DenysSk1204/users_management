@@ -1,0 +1,1 @@
+This is a little script for users managment in Linux systems.
