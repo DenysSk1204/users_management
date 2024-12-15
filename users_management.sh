@@ -7,7 +7,13 @@ PS3="Select the number of operation: "
     select OPT in "Create user" "Update user" "Delete user" "Quit"; do
         case $OPT in
             "Create user")
-                echo "The user has been created";;
+                read -p "Enter the name of user: " NAME
+                if id "$NAME" &>/dev/null; then
+                    echo "The user with name $NAME exists"
+                else
+                   create_user $NAME
+                fi
+                ;;
 
             "Update user")
                 echo "The user has been updated";;
