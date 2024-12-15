@@ -3,8 +3,9 @@
 create_user(){
     if useradd -m -s /bin/bash $1; then 
         echo "####################################"
-        echo "Done! The user $1 has been created."
-        echo "Below information about user: "
+        echo "Specify a password for user $1: "
+        passwd $1
+        echo "Done! The user $1 has been created. Below information about user: "
         id $1
         echo "####################################"
     else 
