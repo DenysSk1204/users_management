@@ -124,7 +124,22 @@ update_user(){
                 
             
             "Unlock user")
-                echo "Unlocked"
+                read -p "Enter the name of user: " NAME
+                echo "####################################"
+                if id "$NAME" &>/dev/null; then
+                    usermod -U "$NAME"
+                    echo "Done! The user $NAME is unlocked."
+                    echo "Information about $NAME below:"
+                    grep "$NAME" /etc/shadow
+                    echo "####################################"
+                    main_menu
+                    return
+                else
+                    echo "The user $NAME doesn't exist."
+                    echo "####################################"
+                    main_menu
+                    return
+                fi
                 ;;
             
             "Quit")
