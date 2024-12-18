@@ -19,7 +19,7 @@ main_menu(){
                 ;;
 
             "Delete user")
-                echo "The user has been deleted"
+                delete_user
                 ;;
 
             "Quit")
@@ -148,4 +148,21 @@ update_user(){
                 return;;
         esac
     done
+}
+
+delete_user(){
+    read -p "Enter the name of user: " NAME
+                echo "####################################"
+                if id "$NAME" &>/dev/null; then
+                    userdel -fr "$NAME" &>/dev/null
+                    echo "Done! The user $NAME and home directory are deleted."
+                    echo "####################################"
+                    main_menu
+                    return
+                else
+                    echo "The user $NAME doesn't exist."
+                    echo "####################################"
+                    main_menu
+                    return
+                fi
 }
