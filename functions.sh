@@ -15,17 +15,21 @@ main_menu(){
                 ;;
 
             "Update user") 
-                update_user;;
+                update_user
+                ;;
 
             "Delete user")
-                echo "The user has been deleted";;
+                echo "The user has been deleted"
+                ;;
 
             "Quit")
                 echo "Bye!" 
-                exit 0;;
+                exit 0
+                ;;
 
             *)
-                echo "Invalid option... try again";;
+                echo "Invalid option... try again"
+                ;;
         esac
     done
 }
@@ -76,7 +80,28 @@ update_user(){
                 ;;
             
             "Delete from group")
-                echo "Deleted from group";;
+                read -p "Enter the name of user: " NAME
+                echo "####################################"
+                if id "$NAME" &>/dev/null; then
+                    echo "Information about $NAME below:"
+                        id $NAME
+                    read -p "Enter the name of group: " GROUP
+                    if egrep ^"$GROUP.*$NAME"$ /etc/group &> /dev/null; then
+                        gpasswd -d $NAME $GROUP 
+                        echo "The user $NAME deleted from group $GROUP"
+                        echo "Information about $NAME below:"
+                        id $NAME
+                        echo "####################################"
+                        main_menu
+                        return
+                    else
+                        echo "The group $GROUP doesn't exist."
+                        echo "####################################"
+                        main_menu
+                        return
+                    fi
+                fi
+                ;;
 
             "Lock user")
                 echo "Locked";;
