@@ -104,10 +104,28 @@ update_user(){
                 ;;
 
             "Lock user")
-                echo "Locked";;
+                read -p "Enter the name of user: " NAME
+                echo "####################################"
+                if id "$NAME" &>/dev/null; then
+                    usermod -L "$NAME"
+                    echo "Done! The user $NAME is locked."
+                    echo "Information about $NAME below:"
+                    grep "$NAME" /etc/shadow
+                    echo "####################################"
+                    main_menu
+                    return
+                else
+                    echo "The user $NAME doesn't exist."
+                    echo "####################################"
+                    main_menu
+                    return
+                fi
+                ;;
+                
             
             "Unlock user")
-                echo "Unlocked";;
+                echo "Unlocked"
+                ;;
             
             "Quit")
                 echo "Forwarding to main menu."
